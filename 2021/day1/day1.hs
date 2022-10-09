@@ -9,8 +9,8 @@ main = do
     let answer1a = parseInput list
     let answer1b = parseInput sumOfTuples
 
-    putStrLn $ show $ length $ answer1a
-    putStrLn $ show $ length $ answer1b
+    print $ length $ answer1a
+    print $ length $ answer1b
 
 getIntList :: [String] -> [Int]
 getIntList xs = map read xs
