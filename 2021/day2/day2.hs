@@ -14,8 +14,8 @@ day2 = do
   print $ "Pt2 Answer: " <> show secondAnswer
 
 wordsToPairs :: [String] -> [(String, Int)]
-wordsToPairs (x : y : xs) = (x, read y) : wordsToPairs xs
-wordsToPairs (_ : _) = error "Error converting words to pairs"
+wordsToPairs (x:y:xs) = (x, read y) : wordsToPairs xs
+wordsToPairs (_:_) = error "number of words not divisible by 2"
 wordsToPairs [] = []
 
 filterPairsWithCommand :: String -> [[(String, Int)]] -> [[(String, Int)]]

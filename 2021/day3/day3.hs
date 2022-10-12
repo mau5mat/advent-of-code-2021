@@ -10,10 +10,14 @@ type PowerConsumption = Int
 day3 :: IO ()
 day3 = do
   input <- readFile "input.txt"
-  print $ parseInput input
+  print $ g f (parseInput input)
 
 parseInput :: String -> [[Int]]
 parseInput = charsToInts . lines
+
+g :: (a -> a -> b) -> [a] -> [b]
+g f (x : y : xs) = f x y : g f xs
+g _ _ = []
 
 f :: [Int] -> [Int] -> [[Int]]
 f (x : xs) (y : ys) = [x, y] : f xs ys
