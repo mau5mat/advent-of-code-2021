@@ -12,8 +12,16 @@ day3 = do
   input <- readFile "input.txt"
   print $ parseInput input
 
-parseInput :: String -> Int
-parseInput = sum . countZeros . charsToInts . lines
+parseInput :: String -> [[Int]]
+parseInput = charsToInts . lines
+
+f :: [Int] -> [Int] -> [[Int]]
+f (x : xs) (y : ys) = [x, y] : f xs ys
+f [] [] = []
+f [_] [] = []
+f [] [_] = []
+f (x : xs) [] = []
+f [] (y : xs) = []
 
 charsToInts :: [String] -> [[Int]]
 charsToInts = (fmap . fmap) digitToInt
