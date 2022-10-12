@@ -1,4 +1,5 @@
-import Text.Read (readMaybe)
+import Data.Char (digitToInt)
+
 -- Modelling data
 type GammaRate = Int
 
@@ -11,13 +12,17 @@ day3 = do
   input <- readFile "input.txt"
   print $ parseInput input
 
-parseInput :: String -> [[Int]]
-parseInput input = stringsToInts $ words <$> lines input
+parseInput :: String -> Int
+parseInput = sum . countZeros . charsToInts . lines
 
-stringsToInts :: [[String]] -> [[Int]]
-stringsToInts =  (fmap . fmap) read
+charsToInts :: [String] -> [[Int]]
+charsToInts = (fmap . fmap) digitToInt
 
+countZeros :: [[Int]] -> [Int]
+countZeros = fmap (length . filter (0 ==))
 
+countOnes :: [[Int]] -> [Int]
+countOnes = fmap (length . filter (1 ==))
 
 -- Parse input data from String -> [[Int]]
 -- [[1,1,0],[0,1,0],[0,0,1]] -- Start
