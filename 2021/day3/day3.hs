@@ -1,4 +1,5 @@
 import Data.Char (digitToInt)
+import Data.List (transpose)
 
 -- Modelling data
 type GammaRate = Int
@@ -10,31 +11,19 @@ type PowerConsumption = Int
 day3 :: IO ()
 day3 = do
   input <- readFile "input.txt"
-  print $ g f (parseInput input)
+  print $ (fmap (countZeros . charsToInts) . transpose . lines) input
 
-parseInput :: String -> [[Int]]
-parseInput = charsToInts . lines
+parseInput :: String -> [Int]
+parseInput = charsToInts
 
-g :: (a -> a -> b) -> [a] -> [b]
-g f (x : y : xs) = f x y : g f xs
-g _ _ = []
+charsToInts :: String -> [Int]
+charsToInts = fmap digitToInt
 
-f :: [Int] -> [Int] -> [[Int]]
-f (x : xs) (y : ys) = [x, y] : f xs ys
-f [] [] = []
-f [_] [] = []
-f [] [_] = []
-f (x : xs) [] = []
-f [] (y : xs) = []
+countZeros :: [Int] -> Int
+countZeros = length . filter (0 ==)
 
-charsToInts :: [String] -> [[Int]]
-charsToInts = (fmap . fmap) digitToInt
-
-countZeros :: [[Int]] -> [Int]
-countZeros = fmap (length . filter (0 ==))
-
-countOnes :: [[Int]] -> [Int]
-countOnes = fmap (length . filter (1 ==))
+countOnes :: [Int] -> Int
+countOnes = length . filter (1 ==)
 
 -- Parse input data from String -> [[Int]]
 -- [[1,1,0],[0,1,0],[0,0,1]] -- Start
